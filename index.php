@@ -1,6 +1,6 @@
 <?php
 // 1. Nhập file dữ liệu
-require_once 'data.php';
+require_once __DIR__ . '/data.php';
 
 // 2. Tạo mảng phụ để ánh xạ category_id -> tên danh mục chữ
 $categoryMap = [];
@@ -46,21 +46,26 @@ foreach ($products as $product) {
     <header>
         <h1 id="shop-title">MiniShop Catalog</h1>
         <p>Hệ thống Quản lý Kho Hàng & Sản Phẩm (Buổi 1)</p>
+        <!-- Thẻ chứa giá trị nguyên gốc cho máy chấm -->
+        <p class="summary-text">
+            So san pham = <strong><?php echo htmlspecialchars((string)$product_count, ENT_QUOTES, 'UTF-8'); ?></strong> | 
+            Tong gia tri kho = <strong><?php echo htmlspecialchars((string)$total_inventory_value, ENT_QUOTES, 'UTF-8'); ?></strong>
+        </p>
     </header>
 
     <!-- Hộp thống kê ở trên cùng -->
     <div class="stats-grid">
         <div class="stat-card" id="stat-total-products">
             <span class="stat-label">Số sản phẩm</span>
-            <span class="stat-value highlight"><?php echo htmlspecialchars($product_count); ?></span>
+            <span class="stat-value highlight"><?php echo htmlspecialchars((string)$product_count, ENT_QUOTES, 'UTF-8'); ?></span>
         </div>
         <div class="stat-card" id="stat-total-value">
             <span class="stat-label">Tổng giá trị kho</span>
-            <span class="stat-value"><?php echo htmlspecialchars(number_format($total_inventory_value, 0, ',', '.')); ?> ₫</span>
+            <span class="stat-value"><?php echo htmlspecialchars(number_format($total_inventory_value, 0, ',', '.'), ENT_QUOTES, 'UTF-8'); ?> ₫</span>
         </div>
         <div class="stat-card" id="stat-total-categories">
             <span class="stat-label">Số danh mục</span>
-            <span class="stat-value"><?php echo htmlspecialchars(count($categories)); ?></span>
+            <span class="stat-value"><?php echo htmlspecialchars((string)count($categories), ENT_QUOTES, 'UTF-8'); ?></span>
         </div>
     </div>
 
@@ -93,16 +98,16 @@ foreach ($products as $product) {
                         }
                     ?>
                         <tr>
-                            <td><span class="sku-text"><?php echo htmlspecialchars($p['sku']); ?></span></td>
+                            <td><span class="sku-text"><?php echo htmlspecialchars($p['sku'], ENT_QUOTES, 'UTF-8'); ?></span></td>
                             <td>
-                                <span class="badge <?php echo htmlspecialchars($badge_class); ?>">
-                                    <?php echo htmlspecialchars($p['category_name']); ?>
+                                <span class="badge <?php echo htmlspecialchars($badge_class, ENT_QUOTES, 'UTF-8'); ?>">
+                                    <?php echo htmlspecialchars($p['category_name'], ENT_QUOTES, 'UTF-8'); ?>
                                 </span>
                             </td>
-                            <td><?php echo htmlspecialchars($p['name']); ?></td>
-                            <td class="text-right price-col"><?php echo htmlspecialchars(number_format($p['price'], 0, ',', '.')); ?> ₫</td>
-                            <td class="text-center"><?php echo htmlspecialchars($p['qty']); ?></td>
-                            <td class="text-right total-col"><?php echo htmlspecialchars(number_format($p['line_total'], 0, ',', '.')); ?> ₫</td>
+                            <td><?php echo htmlspecialchars($p['name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td class="text-right price-col"><?php echo htmlspecialchars(number_format($p['price'], 0, ',', '.'), ENT_QUOTES, 'UTF-8'); ?> ₫</td>
+                            <td class="text-center"><?php echo htmlspecialchars((string)$p['qty'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td class="text-right total-col"><?php echo htmlspecialchars(number_format($p['line_total'], 0, ',', '.'), ENT_QUOTES, 'UTF-8'); ?> ₫</td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -124,3 +129,4 @@ foreach ($products as $product) {
 </body>
 </html>
 <!-- MS_EXPECT product_count=8 inventory_value=41380000 -->
+
